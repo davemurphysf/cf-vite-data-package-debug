@@ -1,0 +1,41 @@
+{
+    "name": "@shingleai/data",
+    "type": "module",
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "scripts": {
+        "build": "tsup",
+        "check-types": "tsc",
+        "clean": "rimraf dist",
+        "lint": "eslint .",
+        "test:coverage": "vitest run --coverage",
+        "test:ui": "vitest --ui --coverage.enabled=true",
+        "test:watch": "vitest",
+        "test": "vitest run",
+        "typegen": "bunx wrangler types"
+    },
+    "dependencies": {
+        "drizzle-orm": "0.42.0",
+        "drizzle-zod": "0.7.1",
+        "postgres": "3.4.5"
+    },
+    "devDependencies": {
+        "drizzle-kit": "0.31.0",
+        "rimraf": "6.0.1",
+        "tsup": "8.4.0"
+    },
+    "peerDependencies": {
+        "typescript": "^5"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

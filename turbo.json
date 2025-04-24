@@ -1,0 +1,88 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["build/**", "dist/**"],
+      "passThroughEnv": ["*"]
+    },
+    "check-types": {
+      "dependsOn": ["^check-types", "typegen", "^build"]
+    },
+    "check-types:watch": {
+      "cache": false,
+      "persistent": true
+    },
+    "clean": {
+      "cache": false
+    },
+    "dev": {
+      "dependsOn": ["^build"],
+      "persistent": true,
+      "cache": false
+    },
+    "lint": {
+      "outputs": [],
+      "cache": true
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts", "test/**/*.tsx"]
+    },
+    "test:coverage": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"]
+    },
+    "test:ui": {
+      "cache": false,
+      "persistent": true
+    },
+    "test:watch": {
+      "cache": false,
+      "persistent": true
+    },
+    "typegen": {
+      "dependsOn": ["^typegen"],
+      "outputs": [
+        "*.d.ts",
+        "src/*.d.ts",
+        "src/database-generated.types.d.ts",
+        "src/zod.ts"
+      ]
+    },
+    "//#app:build": {
+      "dependsOn": ["^build", "check-types"],
+      "outputs": ["dist/**"]
+    },
+    "//#app:deploy": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
+    "//#app:start": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
+    "//#pkg:build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "//#pkg:watch": {
+      "cache": false,
+      "persistent": true
+    },
+    "//#pkg:publish": {
+      "dependsOn": ["build", "test"],
+      "outputs": []
+    }
+  },
+  "globalDependencies": [".env"],
+  "globalEnv": [
+    "NODE_ENV",
+    "WRANGLER_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE",
+    "SUPABASE_URL",
+    "SUPABASE_ANON_KEY",
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "PORT"
+  ]
+}

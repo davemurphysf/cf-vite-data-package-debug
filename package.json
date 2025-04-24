@@ -1,0 +1,45 @@
+{
+  "name": "shingleai",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build:apps": "turbo run build --filter=\"./apps/*\"",
+    "build:fast": "bun turbo run build",
+    "build:packages": "turbo run build --filter=\"./packages/*\"",
+    "build": "turbo run build",
+    "bun-install": "bun install --frozen-lockfile",
+    "check-types:watch": "turbo run check-types:watch --parallel",
+    "check-types": "turbo run check-types",
+    "clean": "turbo run clean",
+    "dev:all-workers": "turbo run dev --filter=\"./apps/*\" --parallel --no-cache",
+    "dev:api": "turbo run dev --filter=@shingleai/api",
+    "dev:web": "turbo run dev --filter=web",
+    "dev": "turbo run dev",
+    "env:check": "bun run ./scripts/check-env.ts",
+    "lint:fix": "eslint . --fix",
+    "lint:root": "eslint . --cache",
+    "lint": "turbo run lint",
+    "nuke": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
+    "supabase:schema": "supabase db dump -f supabase/schema.sql",
+    "test:coverage": "turbo run test:coverage",
+    "test:fast": "bun test",
+    "test:ui": "turbo run test:ui",
+    "test:watch": "turbo run test:watch",
+    "test": "turbo run test",
+    "typegen": "turbo run typegen",
+    "update-deps": "bun update --save",
+    "validate:fast": "bun run lint:root && bun run check-types && bun test",
+    "validate": "turbo run lint check-types test"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "turbo": "2.5.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "packageManager": "bun@1.1.19"
+}
